@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 60%;
+
+}
+table.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+td, th {
+  border: 0px solid #dddddd;
+  text-align: left;
+  padding: 15px;
+}
+
+tr:nth-child(odd) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+<h3>The Jobs Associated with {{skill}} </h3>
+<p>说明:根据输入技能字段寻找含有此字段JD的工作,然后对其做个数,城市分布与中位薪资的统计分析。（输入字段需要是技能）</p>
+<p>使用方法：在/后面输入skill-to-job/技能名称,如skill-to-job/数据分析</p>
+<p> 工作数量: {{total}}, 占所有工作比例:{{ratio}}%</p>
+<table class = "center">
+    <tr>
+        <th>名称</th>
+        <th>数量</th>
+        <th>北京</th>
+        <th>上海</th>
+        <th>广州</th>
+        <th>深圳</th>
+        <th>杭州</th>
+        <th>成都</th>
+        <th>武汉</th>
+        <th>中位薪资</th>
+
+    </tr>
+    {% for i in output %}
+    <tr>
+        <td width="6%"> {{i['name']}}</td>
+        <td width="6%"> {{i['counts']}} </td>
+        <td width="6%">{{i['bj']}}</td>
+        <td width="6%">{{i['sh']}}</td>
+        <td width="6%">{{i['gz']}}</td>
+        <td width="6%">{{i['sz']}}</td>
+        <td width="6%">{{i['hz']}}</td>
+        <td width="6%">{{i['cd']}}</td>
+        <td width="6%">{{i['wh']}}</td>
+        <td width="6%"> {{i['salary']}}元人民币</td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

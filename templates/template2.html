@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 60%;
+
+}
+table.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+td, th {
+  border: 0px solid #dddddd;
+  text-align: left;
+  padding: 15px;
+}
+
+tr:nth-child(odd) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+<h3>The Jobs Associated with {{job}} </h3>
+<p>说明:根据输入工作名称字段寻找含有此字段JD的工作,返回JD中与此工作相关的技能（输入字段需要是工作名称）</p>
+<p>使用方法:在/后面输入job-to-skill/工作名称,如skill-to-job/数据分析师</p>
+<table class = "center">
+    <tr>
+        <th>技能名称</th>
+        <th>出现次数</th>
+    </tr>
+    {% for i in output %}
+    <tr>
+        <td width="6%"> {{i['skills']}}</td>
+        <td width="6%"> {{i['count']}}</td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>
