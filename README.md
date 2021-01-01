@@ -1,1 +1,2 @@
 # 这里写使用帮助
+This is an analytical dashboard I built during my internship,It has the following 2 functions: 1.it can take the input job title and return the ranked skills associated with it so people can know what skills in most popular this kind of job. 2.It can take skills as input and return the jobs that are associated with the skill with their average wage and the destribution of them among major Chinese cities
