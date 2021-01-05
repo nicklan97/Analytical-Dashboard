@@ -10,7 +10,7 @@ def get_df():
     client = MongoClient('localhost', 27017)
     db = client['lagou']
     df = pd.DataFrame(list(db['PositionDetail'].find({}, {'_id': 0, 'positionName': 1, 'salary': 1, 'workAddress': 1,
-                                                          'positionDetail': 1})))
+                                                          'industryField': 1, 'positionDetail': 1})))
     df['positionName'] = df['positionName'].apply(lambda x: re.sub(u"\\（.*?\\）|\\{.*?}|\\[.*?]", "", x).upper()
                                                   .replace('（', '').replace('）', '').replace('(', '').replace(')', '').replace(' ', '').replace('-', '')
                                                   )
@@ -63,3 +63,17 @@ def search_job_from_skill(skill, df):
     output = json.loads(output.to_json(orient='records'))
     #output['Total'] = len(data)
     return output, total, skill, ratio
+
+
+def get_industry(skill, df):
+    if skill.islower() == True:
+        skill = skill.upper()
+    data = df[df['positionDetail'].str.contains(skill)]
+    data['industryField'] = data['industryField'].apply(
+        lambda x: x.replace('、', ',').replace(' ', ','))
+    data['industryField'] = data['industryField'].str.split(',').explode().reset_index(drop=True)
+    data = data[data['industryField'].notna()]
+    output = pd.DataFrame(data['industryField'].value_counts()).rename(
+        columns={'industryField': 'counts'}).head(30)
+    output['industry'] = output.index
+    return output
